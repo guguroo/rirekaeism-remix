@@ -37,3 +37,21 @@ mark {
     background-color: #ff3e00;
     color: white;
 }
+
+/* style.css の末尾に追加 */
+
+/* お題の強調表示：赤字と下線 */
+#question .highlight {
+    color: #ff3e00;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/* 答えの強調表示：背景色を変えて目立たせる */
+#answer .highlight {
+    color: #2d2d2d; /* 背景色と同じにして抜いて見せる */
+    background-color: #10d4ff; /* primary-colorと同じ水色 */
+    padding: 0 4px;
+    border-radius: 4px;
+    font-weight: bold;
+}
