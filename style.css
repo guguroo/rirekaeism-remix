@@ -40,11 +40,14 @@ mark {
 
 /* style.css の末尾に追加 */
 
-/* お題の強調表示：赤字と下線 */
+/* お題の強調表示 */
 #question .highlight {
-    color: #ff3e00;
-    text-decoration: underline;
+    color: #ffffff !important; /* 白文字 */
+    background-color: #ff3e00; /* 赤背景 */
+    padding: 0 0.2rem;
+    border-radius: 0.2rem;
     font-weight: bold;
+    text-decoration: none; /* 下線を消す */
 }
 
 /* 答えの強調表示：背景色を変えて目立たせる */

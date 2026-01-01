@@ -46,11 +46,10 @@ function generateAnswerHTML(word1, word2) {
     return `${res1HTML}　${res2HTML}`;
 }
 
-// --- 出題キューの管理ロジック ---
+// --- 出題管理 ---
 let shuffledQueue = [];
 let totalCount = questions.length;
 
-// 配列をシャッフルする関数（フィッシャー–イェーツのシャッフル）
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -59,33 +58,30 @@ function shuffle(array) {
     return array;
 }
 
-// キューを初期化（未出題リストを作成）
 function resetQueue() {
     shuffledQueue = shuffle([...questions]);
 }
 
-// UI制御用
+// UI要素の取得
 const qDisplay = document.getElementById('question');
 const aDisplay = document.getElementById('answer');
 const aBox = document.getElementById('answer-box');
 const btnAns = document.getElementById('btn-ans');
 const btnNext = document.getElementById('btn-next');
+const progressDisplay = document.getElementById('progress'); // ここで「じゅんび中」を書き換えます
 
-// 進捗表示用の要素（もしHTMLにあれば更新する）
+// 進捗の更新
 function updateProgress() {
-    const progressText = `残り: ${shuffledQueue.length} / ${totalCount}`;
-    console.log(progressText); // コンソールで確認用
-    // HTMLに <small id="progress"></small> などがあれば表示可能
+    const currentNum = totalCount - shuffledQueue.length;
+    progressDisplay.innerText = `${currentNum} / ${totalCount} 問目`;
 }
 
 function updateQuestion() {
-    // キューが空になったらリセット（全問終了時）
     if (shuffledQueue.length === 0) {
-        alert("全問終了しました！最初からループします。");
+        alert("すべての問題をクリアしました！最初からやりなおします。");
         resetQueue();
     }
 
-    // キューの最後から1つ取り出す（これにより重複がなくなる）
     const q = shuffledQueue.pop();
     const parts = q.split(" ");
     
@@ -94,7 +90,7 @@ function updateQuestion() {
     
     aBox.classList.add('hidden');
     btnAns.innerText = "答えを見る";
-    updateProgress();
+    updateProgress(); // ここで数字を更新
 }
 
 btnAns.addEventListener('click', () => {
@@ -104,6 +100,6 @@ btnAns.addEventListener('click', () => {
 
 btnNext.addEventListener('click', updateQuestion);
 
-// 起動時にキューを作成して初回の出題
+// スタート
 resetQueue();
 updateQuestion();
