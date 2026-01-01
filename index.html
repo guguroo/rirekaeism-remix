@@ -11,15 +11,24 @@
     <main class="container">
         <header>
             <h1><mark>リレカエイズム Online</mark></h1>
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <label for="mode-toggle">
+                    <input type="checkbox" id="mode-toggle" role="switch">
+                    ⭐ おきにいりモード
+                </label>
+            </div>
         </header>
 
         <section id="game-card">
             <div class="card-content">
-                <small>お題</small>
+                <div style="text-align: right;">
+                    <button id="btn-fav" class="outline">☆</button>
+                </div>
+                <small>もんだい</small>
                 <div id="question">-- --</div>
                 <hr>
                 <div id="answer-box" class="hidden">
-                    <small>答え</small>
+                    <small>こたえ</small>
                     <div id="answer" class="primary-color">-- --</div>
                 </div>
             </div>
@@ -27,13 +36,18 @@
 
         <footer>
             <div class="grid">
-                <button id="btn-ans" class="secondary">答えを見る</button>
-                <button id="btn-next">次へ ➔</button>
+                <button id="btn-ans" class="secondary">こたえを　みる</button>
+                <button id="btn-next">つぎへ ➔</button>
             </div>
             <p style="text-align: center; margin-top: 1rem;">
-                <small id="progress">じゅんび中...</small>
+                <small id="progress">じゅんびちゅう...</small>
             </p>
         </footer>
+
+        <details id="fav-list-container">
+            <summary>⭐ おきにいりリスト</summary>
+            <ul id="fav-list"></ul>
+        </details>
     </main>
 
     <script src="questions.js"></script>

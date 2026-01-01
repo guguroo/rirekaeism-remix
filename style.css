@@ -58,3 +58,46 @@ mark {
     border-radius: 4px;
     font-weight: bold;
 }
+
+/* お気に入りボタンのスタイル */
+#btn-fav {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#btn-fav.active {
+    color: #ffcc00 !important; /* お気に入り登録時の金色 */
+    transform: scale(1.2);
+}
+
+/* お気に入りリストのスタイル */
+#fav-list-container {
+    margin-top: 2rem;
+    background: #2d2d2d;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+#fav-list {
+    list-style: none;
+    padding: 0;
+    font-size: 0.9rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#fav-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #444;
+    padding: 0.5rem 0;
+}
+
+#fav-list button {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+    margin-left: 1rem;
+}
