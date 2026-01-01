@@ -4,100 +4,109 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    margin: 0;
+    padding: 10px;
+    font-family: sans-serif;
+}
+
+h1 {
+    font-size: clamp(1.2rem, 5vw, 2rem);
+    text-align: center;
+    white-space: nowrap;
 }
 
 #game-card {
     background: #2d2d2d;
     border: 4px solid #333;
     border-radius: 1rem;
-    padding: 2rem;
+    padding: clamp(1rem, 5vw, 2rem);
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    width: 100%;
+    max-width: 600px;
 }
 
-#question {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-#answer {
-    font-size: 2.5rem;
-    color: #ff3e00;
+#question, #answer {
+    font-size: clamp(1.5rem, 8vw, 2.8rem);
+    margin: 0.5rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
 }
 
 .hidden {
     visibility: hidden;
 }
 
-.primary-color {
-    color: #10d4ff !important;
+#answer-box {
+    min-height: 4.5rem;
+}
+
+/* おだい：あかいろの バッジ */
+#question .highlight {
+    color: #ffffff !important;
+    background-color: #ff3e00;
+    padding: 0 0.2rem;
+    border-radius: 0.2rem;
+    font-weight: bold;
+}
+
+/* こたえ：みずいろの バッジ */
+#answer .highlight {
+    color: #1a1a1a !important;
+    background-color: #10d4ff;
+    padding: 0 0.2rem;
+    border-radius: 0.2rem;
+    font-weight: bold;
+}
+
+/* おきにいりボタンの とくべつな デザイン */
+#btn-fav {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    margin-bottom: 0.5rem;
+    border-color: #555;
+    color: #aaa;
+}
+
+#btn-fav.active {
+    border-color: #ffcc00;
+    color: #ffcc00 !important;
+    background-color: rgba(255, 204, 0, 0.1);
 }
 
 mark {
     background-color: #ff3e00;
     color: white;
+    padding: 0.2rem 0.5rem;
 }
 
-/* style.css の末尾に追加 */
-
-/* お題の強調表示 */
-#question .highlight {
-    color: #ffffff !important; /* 白文字 */
-    background-color: #ff3e00; /* 赤背景 */
-    padding: 0 0.2rem;
-    border-radius: 0.2rem;
-    font-weight: bold;
-    text-decoration: none; /* 下線を消す */
+.primary-color {
+    color: #10d4ff !important;
 }
 
-/* 答えの強調表示：背景色を変えて目立たせる */
-#answer .highlight {
-    color: #2d2d2d; /* 背景色と同じにして抜いて見せる */
-    background-color: #10d4ff; /* primary-colorと同じ水色 */
-    padding: 0 4px;
-    border-radius: 4px;
+button {
     font-weight: bold;
 }
 
-/* お気に入りボタンのスタイル */
-#btn-fav {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-#btn-fav.active {
-    color: #ffcc00 !important; /* お気に入り登録時の金色 */
-    transform: scale(1.2);
-}
-
-/* お気に入りリストのスタイル */
 #fav-list-container {
-    margin-top: 2rem;
-    background: #2d2d2d;
-    padding: 1rem;
+    margin-top: 1.5rem;
+    background: #262626;
+    padding: 0.8rem;
     border-radius: 0.5rem;
 }
 
 #fav-list {
     list-style: none;
     padding: 0;
-    font-size: 0.9rem;
-    max-height: 200px;
-    overflow-y: auto;
+    margin: 0;
+    font-size: 0.8rem;
 }
 
 #fav-list li {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #444;
-    padding: 0.5rem 0;
-}
-
-#fav-list button {
-    padding: 0.2rem 0.5rem;
-    font-size: 0.7rem;
-    margin-left: 1rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #333;
 }

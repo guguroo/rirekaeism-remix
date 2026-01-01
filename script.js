@@ -1,4 +1,3 @@
-// --- 基本ロジック ---
 function getFirstMora(word) {
     const yoon = ["ゃ", "ゅ", "ょ", "ぁ", "ぃ", "ぅ", "ぇ", "ぉ"];
     if (word.length > 1 && yoon.includes(word[1])) return word.substring(0, 2);
@@ -27,7 +26,6 @@ function generateAnswerHTML(word1, word2) {
     return `${res1HTML}　${res2HTML}`;
 }
 
-// --- 出題管理 ---
 let shuffledQueue = [];
 let currentRawQuestion = "";
 let isFavoriteMode = false;
@@ -44,7 +42,7 @@ function resetQueue() {
     if (isFavoriteMode) {
         const favs = getFavorites();
         if (favs.length === 0) {
-            alert("おきにいりが ありません！つうじょうモードに もどります。");
+            alert("おきにいりが ありません！つうじょうもーどに もどります。");
             document.getElementById('mode-toggle').checked = false;
             isFavoriteMode = false;
             shuffledQueue = shuffle([...questions]);
@@ -56,7 +54,6 @@ function resetQueue() {
     }
 }
 
-// --- UI要素 ---
 const qDisplay = document.getElementById('question');
 const aDisplay = document.getElementById('answer');
 const aBox = document.getElementById('answer-box');
@@ -67,7 +64,6 @@ const progressDisplay = document.getElementById('progress');
 const modeToggle = document.getElementById('mode-toggle');
 const favList = document.getElementById('fav-list');
 
-// --- お気に入りロジック ---
 function getFavorites() {
     return JSON.parse(localStorage.getItem('rirekai_favorites') || '[]');
 }
@@ -75,10 +71,10 @@ function getFavorites() {
 function updateFavButtonUI() {
     const favorites = getFavorites();
     if (favorites.includes(currentRawQuestion)) {
-        btnFav.innerText = "★";
+        btnFav.innerHTML = "🌟 はいってる"; // 登録済みの表示
         btnFav.classList.add('active');
     } else {
-        btnFav.innerText = "☆";
+        btnFav.innerHTML = "⭐ おきにいり"; // 未登録の表示
         btnFav.classList.remove('active');
     }
 }
@@ -118,16 +114,15 @@ function removeFavorite(item) {
     renderFavoriteList();
 }
 
-// --- メインフロー ---
 function updateProgress() {
     const total = isFavoriteMode ? getFavorites().length : questions.length;
-    const remain = shuffledQueue.length;
-    progressDisplay.innerText = `${total - remain} / ${total} 問目 ${isFavoriteMode ? '(⭐モード)' : ''}`;
+    const nowCount = total - shuffledQueue.length;
+    progressDisplay.innerText = `${nowCount} / ${total} もんめ ${isFavoriteMode ? '(⭐もーど)' : ''}`;
 }
 
 function updateQuestion() {
     if (shuffledQueue.length === 0) {
-        alert("ぜんぶ おわりました！");
+        alert("ぜんぶ おわりました！もういちど はじめます。");
         resetQueue();
     }
     const q = shuffledQueue.pop();
@@ -136,27 +131,30 @@ function updateQuestion() {
     qDisplay.innerHTML = generateQuestionHTML(parts[0], parts[1]);
     aDisplay.innerHTML = generateAnswerHTML(parts[0], parts[1]);
     aBox.classList.add('hidden');
-    btnAns.innerText = "こたえを　みる";
+    btnAns.innerText = "こたえをみる";
     updateProgress();
     updateFavButtonUI();
 }
 
-// --- イベント ---
 btnAns.addEventListener('click', () => {
-    aBox.classList.toggle('hidden');
-    btnAns.innerText = aBox.classList.contains('hidden') ? "こたえを　みる" : "こたえを　かくす";
+    const isHidden = aBox.classList.contains('hidden');
+    if (isHidden) {
+        aBox.classList.remove('hidden');
+        btnAns.innerText = "こたえをかくす";
+    } else {
+        aBox.classList.add('hidden');
+        btnAns.innerText = "こたえをみる";
+    }
 });
 
 btnNext.addEventListener('click', updateQuestion);
 btnFav.addEventListener('click', toggleFavorite);
-
 modeToggle.addEventListener('change', (e) => {
     isFavoriteMode = e.target.checked;
     resetQueue();
     updateQuestion();
 });
 
-// 起動
 resetQueue();
 updateQuestion();
 renderFavoriteList();
