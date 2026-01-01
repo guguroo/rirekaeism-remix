@@ -1,71 +1,127 @@
+/* --- 全体のレイアウト --- */
 body {
     background-color: #1a1a1a;
+    color: #ffffff;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 100vh;
     margin: 0;
-    padding: 10px;
-    font-family: sans-serif;
+    padding: 20px 10px;
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
 }
 
+/* Pico.cssのコンテナ制限を解除してPCでも広く表示 */
+.container {
+    width: 100% !important;
+    max-width: 1000px !important; /* PCブラウザでの最大幅 */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- タイトル --- */
 h1 {
-    font-size: clamp(1.2rem, 5vw, 2rem);
+    width: 100%;
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
     text-align: center;
-    white-space: nowrap;
+    margin-bottom: 2rem;
 }
 
+mark {
+    background-color: #ff3e00;
+    color: white;
+    padding: 0.2rem 1rem;
+    display: inline-block;
+}
+
+/* --- メインカード（横幅と高さを安定させる） --- */
 #game-card {
     background: #2d2d2d;
     border: 4px solid #333;
-    border-radius: 1rem;
-    padding: clamp(1rem, 5vw, 2rem);
+    border-radius: 1.5rem;
+    padding: clamp(1rem, 5vw, 2.5rem);
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    width: 100%;
-    max-width: 600px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    width: 100%; 
+    margin-bottom: 2rem;
+    /* カード全体の高さが急に変わらないようにする */
 }
 
+/* --- お題と答えの表示 --- */
 #question, #answer {
-    font-size: clamp(1.5rem, 8vw, 2.8rem);
-    margin: 0.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0.6rem;
+    font-size: clamp(1.2rem, 8vw, 3.5rem); 
+    margin: 1rem 0;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.2;
+    line-height: 1.4;
 }
 
+/* 【重要】レイアウトを固定したまま隠す設定 */
 .hidden {
-    visibility: hidden;
+    /* 場所（高さ）は確保したまま、完全に透明にする */
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none; /* 隠れている間はクリック等に反応させない */
 }
 
+/* 答えエリア：最初から答えが表示された時と同じ高さを確保する */
 #answer-box {
-    min-height: 4.5rem;
+    /* 答えが表示されても非表示でも、この領域の高さは変わりません */
+    min-height: 8rem; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top: 2px solid #333;
+    margin-top: 1rem;
+    padding-top: 1rem;
 }
 
-/* おだい：あかいろの バッジ */
+/* --- 強調バッジ（お題：赤 / 答え：水色） --- */
 #question .highlight {
     color: #ffffff !important;
     background-color: #ff3e00;
-    padding: 0 0.2rem;
-    border-radius: 0.2rem;
-    font-weight: bold;
+    padding: 0 0.4rem;
+    border-radius: 0.4rem;
 }
 
-/* こたえ：みずいろの バッジ */
 #answer .highlight {
     color: #1a1a1a !important;
     background-color: #10d4ff;
-    padding: 0 0.2rem;
-    border-radius: 0.2rem;
-    font-weight: bold;
+    padding: 0 0.4rem;
+    border-radius: 0.4rem;
 }
 
-/* おきにいりボタンの とくべつな デザイン */
+/* --- 操作エリア（ボタン） --- */
+footer {
+    width: 100%;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+/* スマホでも押しやすく、かつ位置が動かないボタン */
+button {
+    font-weight: bold;
+    font-size: 1.2rem !important;
+    padding: 1rem !important;
+    margin-bottom: 0 !important;
+}
+
+/* --- お気に入りボタン --- */
 #btn-fav {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
-    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
     border-color: #555;
     color: #aaa;
 }
@@ -76,37 +132,46 @@ h1 {
     background-color: rgba(255, 204, 0, 0.1);
 }
 
-mark {
-    background-color: #ff3e00;
-    color: white;
-    padding: 0.2rem 0.5rem;
-}
-
-.primary-color {
-    color: #10d4ff !important;
-}
-
-button {
-    font-weight: bold;
-}
-
+/* --- お気に入りリスト --- */
 #fav-list-container {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     background: #262626;
-    padding: 0.8rem;
-    border-radius: 0.5rem;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    width: 100%;
+}
+
+summary {
+    font-weight: bold;
+    cursor: pointer;
+    color: #ffcc00;
+    list-style: none; /* デフォルトの矢印を消す（任意） */
 }
 
 #fav-list {
     list-style: none;
     padding: 0;
-    margin: 0;
-    font-size: 0.8rem;
+    margin: 1rem 0 0 0;
 }
 
 #fav-list li {
     display: flex;
     justify-content: space-between;
-    padding: 0.4rem 0;
+    align-items: center;
+    padding: 0.8rem 0;
     border-bottom: 1px solid #333;
+    font-size: 1.1rem;
+}
+
+#fav-list button {
+    margin: 0;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+}
+
+/* --- 進捗表示 --- */
+#progress {
+    color: #888;
+    font-size: 1.1rem;
+    margin-top: 1rem;
 }
