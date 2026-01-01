@@ -10,17 +10,17 @@
 <body>
     <main class="container">
         <header>
-            <h1>リズムカードゲーム<br><mark>リレカエイズム</mark></h1>
+            <h1><mark>リレカエイズム Online</mark></h1>
         </header>
 
         <section id="game-card">
             <div class="card-content">
                 <small>お題</small>
-                <h2 id="question">-- --</h2>
+                <div id="question">-- --</div>
                 <hr>
                 <div id="answer-box" class="hidden">
                     <small>答え</small>
-                    <h2 id="answer" class="primary-color">-- --</h2>
+                    <div id="answer" class="primary-color">-- --</div>
                 </div>
             </div>
         </section>
@@ -28,10 +28,10 @@
         <footer>
             <div class="grid">
                 <button id="btn-ans" class="secondary">答えを見る</button>
-                <button id="btn-next">NEXT ➔</button>
+                <button id="btn-next">次へ ➔</button>
             </div>
             <p style="text-align: center; margin-top: 1rem;">
-                <small>リズムに合わせて入れ替えて叫べ！</small>
+                <small id="progress">じゅんび中...</small>
             </p>
         </footer>
     </main>
